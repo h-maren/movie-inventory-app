@@ -1,0 +1,19 @@
+{
+  "name": "movie-inventory-app",
+  "version": "1.0.0",
+  "description": "inventory application of movie database using node postgresql and express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "node": "^22.13.0",
+    "pg": "^8.13.1"
+  }
+}
