@@ -2,15 +2,17 @@ const { Router } = require("express");
 const indexRouter= Router(); 
 const categoryController = require("../controllers/categoryController");
 const movieController = require("../controllers/movieController");
+const indexController = require('../controllers/indexController');
 
 
 
-indexRouter.get("/", (req, res) => {
-    res.render('index', {title: 'Movie Inventory'});
-});
-
+indexRouter.get("/", indexController.generateIndexPage);
 indexRouter.get("/viewAllCategories",categoryController.getAllCategories);
 indexRouter.get("/viewAllMovies",movieController.getAllMovies);
+
+indexRouter.get("/category/:id", categoryController.getSelectedCategory);
+indexRouter.get("/movie/:id", movieController.getSelectedMovieDetails);
+
 
 
 module.exports = indexRouter;

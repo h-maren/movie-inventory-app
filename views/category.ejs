@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title><%= category %></title>
     <link rel="stylesheet" type="text/css" href="/styles.css">
 </head>
 <header>
-    <%= title %>
+    <% category %> movies
 </header>
 <body>
     <ul>
-    <% categories.map((category) => { %>
+    <% movies.map((movie) => { %>
         <li>
-        <a href="/category/<%= category.id %>"><%=category.category_type%></a>
+        <a href="/movie/<%= movie.id %>"><%=movie.movie_title%></a>
         </li>
     <% }); %>
     </ul>
+    <a href="/">Back to Home Page</a>
     <a href="/viewAllCategories">View All Movie Categories</a>
     <a href="/viewAllMovies">View All Movies</a>
 </body>

@@ -8,6 +8,16 @@ async function getAllMovies(req, res) {
     });
 };
 
+async function getSelectedMovieDetails(req,res){
+    const movieID=req.params.id;
+    const movie = await db.getSelectedMovie(movieID);
+    res.render("movie", {
+        movie: movie
+    });
+};
+
+
 module.exports = {
-    getAllMovies
+    getAllMovies,
+    getSelectedMovieDetails
   };
