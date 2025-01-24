@@ -13,6 +13,7 @@ indexRouter.get("/viewAllMovies",movieController.getAllMovies);
 indexRouter.get("/category/:id", categoryController.getSelectedCategory);
 indexRouter.get("/movie/:id", movieController.getSelectedMovieDetails);
 
-
+indexRouter.get("/addMovieForm",movieController.getMovieForm);
+indexRouter.post('/addMovie',movieController.addMovie);
 
 module.exports = indexRouter;
