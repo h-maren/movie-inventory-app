@@ -18,7 +18,29 @@ async function getSelectedCategory(req,res) {
     })
 }
 
+async function getCategoryForm(req,res){
+    res.render("addCategory", {
+        title: "Add Movie Category to Library",
+    });
+};
+
+async function addCategory(req,res){
+    const category_type=req.body.category_type;
+    const categoryExists= await db.ifCategoryExists(category_type);
+    if(!categoryExists){
+        //insert category details to sql database
+        await db.addCategory(category_type);
+        res.redirect('/');
+    }
+    else {
+        //need to add redirect page here
+        res.redirect('/');
+    }
+};
+
 module.exports = {
     getAllCategories,
-    getSelectedCategory
+    getSelectedCategory,
+    getCategoryForm,
+    addCategory
   };

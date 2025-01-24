@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<header>
+    <%= title %>
+</header>
+<body>
+    <form method="POST" action="/addCategory">
+        <label for="category_type">Category Type: </label>
+        <input type="text" id="category_type" name="category_type">
+        <button type="submit">Add Movie Category to Library</button>
+     </form>
+     <a href="/">Change Your Mind? Go Back Home</a>
+</body>
+</html>
