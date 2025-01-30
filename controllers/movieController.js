@@ -11,8 +11,15 @@ async function getAllMovies(req, res) {
 async function getSelectedMovieDetails(req,res){
     const movieID=req.params.id;
     const movie = await db.getSelectedMovie(movieID);
+    const categoryIDs = await db.getCategoriesFromMovieID(movieID);
+    let categoryTypes=[];
+    for (category of categoryIDs){
+        const categoryType = await db.getSelectedCategory(category.categoryid);
+        categoryTypes.push(categoryType.category_type);
+    }
     res.render("movie", {
-        movie: movie
+        movie: movie,
+        categoryTypes: categoryTypes
     });
 };
 
@@ -21,6 +28,19 @@ async function getMovieForm(req,res){
     res.render("addMovie", {
         title: "Add Movie to Library",
         categories: categories,
+    });
+};
+
+async function editMovieForm(req,res){
+    const movieID=req.params.id;
+    const movie = await db.getSelectedMovie(movieID);
+    const categories = await db.getAllCategories();
+    const moviescategories = await db.getCategoriesFromMovieID(movieID);
+    res.render("addMovie", {
+        title: "Edit Movie in Library",
+        categories: categories,
+        movie: movie,
+        moviescategories: moviescategories
     });
 };
 
@@ -52,4 +72,5 @@ module.exports = {
     getSelectedMovieDetails,
     getMovieForm,
     addMovie,
+    editMovieForm
   };

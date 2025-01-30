@@ -72,6 +72,13 @@ async function addCategory(category_type) {
         [category_type]);
 }
 
+async function getCategoriesFromMovieID(movieID){
+    const {rows} = await pool.query(
+        "SELECT categoryid FROM movie_with_category WHERE movieid=$1",
+        [movieID]);
+    return rows;
+}
+
 module.exports = {
     getAllCategories,
     getSelectedCategory,
@@ -83,6 +90,7 @@ module.exports = {
     ifMovieExists,
     ifCategoryExists,
     addMovieCategory,
-    addCategory
+    addCategory,
+    getCategoriesFromMovieID
 };
   

@@ -16,6 +16,8 @@ indexRouter.get("/movie/:id", movieController.getSelectedMovieDetails);
 indexRouter.get("/addMovieForm",movieController.getMovieForm);
 indexRouter.post('/addMovie',movieController.addMovie);
 
+indexRouter.get('/edit/:id',movieController.editMovieForm);
+
 indexRouter.get("/addCategoryForm",categoryController.getCategoryForm);
 indexRouter.post("/addCategory",categoryController.addCategory);
 

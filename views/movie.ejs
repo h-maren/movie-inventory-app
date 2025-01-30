@@ -16,6 +16,13 @@
         Year: <%= movie.movie_year %>
         </li>
     </ul>
+    Category Types:
+    <ul>
+        <% categoryTypes.map((category) => { %>
+            <li><%= category %></li>
+        <% }) %>
+    </ul>
+    <a href="/edit/<%=movie.id %>">Click Here to Update Movie</a>
     <a href="/">Back to Main Page</a>
 </body>
 </html>
