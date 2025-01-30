@@ -10,7 +10,7 @@
     <%= title %>
 </header>
 <body>
-    <form method="POST" action="/addMovie">
+    <form method="POST" action="/addOrEditMovie">
         <label for="movie_title">Title: </label>
         <input type="text" id="movie_title" name="movie_title" value="<%=movie ? movie.movie_title : ''%>">
         <label for="movie_director">Director: </label>
@@ -18,12 +18,15 @@
         <label for="movie_year">Year: </label>
         <input type="number" step="1" id="movie_year" name="movie_year" value="<%=movie ? movie.movie_year : ''%>">
         <% categories.map((category) => { %>
-            <input type="checkbox" id="<%= category.id %>" name="category" value="<%=category.category_type%>" <% moviescategories.map((moviecategory) => {%>
+            <input type="checkbox" id="<%= category.id %>" name="category" value="<%=category.category_type%>" 
+            <% if(moviescategories){ %>
+            <% moviescategories.map((moviecategory) => {%>
             <% if(moviecategory.categoryid==category.id) {%> checked > <% } else {%> <% } %>
             <% }) %>
+            <% } %>
             <label for="<%= category.id %>"><%=category.category_type%></label>
         <% }) %>
-        <button type="submit">Add Movie to Library</button>
+        <button type="submit"><%=title%></button>
      </form>
      <a href="/">Change Your Mind? Go Back Home</a>
 </body>

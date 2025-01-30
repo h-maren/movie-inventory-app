@@ -13,8 +13,8 @@ indexRouter.get("/viewAllMovies",movieController.getAllMovies);
 indexRouter.get("/category/:id", categoryController.getSelectedCategory);
 indexRouter.get("/movie/:id", movieController.getSelectedMovieDetails);
 
-indexRouter.get("/addMovieForm",movieController.getMovieForm);
-indexRouter.post('/addMovie',movieController.addMovie);
+indexRouter.get("/getMovieForm",movieController.getMovieForm);
+indexRouter.post('/addOrEditMovie',movieController.addOrEditMovie);
 
 indexRouter.get('/edit/:id',movieController.editMovieForm);
 

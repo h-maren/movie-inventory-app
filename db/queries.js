@@ -26,10 +26,11 @@ async function getSelectedMovie(movieID){
     return rows[0];
 }
 
-async function ifMovieExists(movie_title,movie_director,movie_year){
+async function ifMovieExists(movie_title){
+    const movieTitleCheck=String(movie_title).toLowerCase();
     const { rows } = await pool.query(
-        'SELECT * FROM movie_details WHERE movie_title=$1 AND movie_director=$2 AND movie_year=$3',
-        [movie_title,movie_director,movie_year]);
+        'SELECT * FROM movie_details WHERE LOWER(movie_title) = $1',
+        [movieTitleCheck]);
     if(rows[0]){
         return true;
     }
@@ -79,6 +80,19 @@ async function getCategoriesFromMovieID(movieID){
     return rows;
 }
 
+async function getMovieIDByTitle(movie_title){
+    const {rows} = await pool.query(
+        "SELECT id FROM movie_details WHERE movie_title=$1",
+        [movie_title]);
+    return rows[0].id;
+}
+
+async function updateMovieDetails(movieID,movieDirector,movieYear){
+    await pool.query (
+        "UPDATE movie_details SET movie_director=$2, movie_year=$3 WHERE id=$1",
+        [movieID,movieDirector,movieYear]);
+}
+
 module.exports = {
     getAllCategories,
     getSelectedCategory,
@@ -91,6 +105,8 @@ module.exports = {
     ifCategoryExists,
     addMovieCategory,
     addCategory,
-    getCategoriesFromMovieID
+    getCategoriesFromMovieID,
+    getMovieIDByTitle,
+    updateMovieDetails
 };
   

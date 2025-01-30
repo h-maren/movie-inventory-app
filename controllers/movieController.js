@@ -25,9 +25,11 @@ async function getSelectedMovieDetails(req,res){
 
 async function getMovieForm(req,res){
     const categories = await db.getAllCategories();
-    res.render("addMovie", {
+    res.render("movieForm", {
         title: "Add Movie to Library",
         categories: categories,
+        movie: undefined,
+        moviescategories: undefined,
     });
 };
 
@@ -36,7 +38,7 @@ async function editMovieForm(req,res){
     const movie = await db.getSelectedMovie(movieID);
     const categories = await db.getAllCategories();
     const moviescategories = await db.getCategoriesFromMovieID(movieID);
-    res.render("addMovie", {
+    res.render("movieForm", {
         title: "Edit Movie in Library",
         categories: categories,
         movie: movie,
@@ -44,11 +46,11 @@ async function editMovieForm(req,res){
     });
 };
 
-async function addMovie(req,res){
+async function addOrEditMovie(req,res){
     const movie_title=req.body.movie_title;
     const movie_director=req.body.movie_director;
     const movie_year=req.body.movie_year;
-    const movieExists= await db.ifMovieExists(movie_title,movie_director,movie_year);
+    const movieExists= await db.ifMovieExists(movie_title);
     const movieCategories=req.body.category;
     if(!movieExists){
         //insert movie details to sql database
@@ -61,7 +63,10 @@ async function addMovie(req,res){
         }
         res.redirect('/');
     }
+    //if movie exists, update instead
     else {
+        const movieID = await db.getMovieIDByTitle(movie_title);
+        await db.updateMovieDetails(movieID,movie_director,movie_year);
         //need to add redirect page here
         res.redirect('/');
     }
@@ -71,6 +76,6 @@ module.exports = {
     getAllMovies,
     getSelectedMovieDetails,
     getMovieForm,
-    addMovie,
+    addOrEditMovie,
     editMovieForm
   };
