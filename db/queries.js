@@ -13,6 +13,7 @@ async function getSelectedCategory(categoryID){
 
 async function findCategoryID(category){
     const {rows} = await pool.query("SELECT id FROM movie_categories WHERE category_type=$1",[category]);
+    console.log(rows);
     return rows[0].id;
 }
 
@@ -61,10 +62,16 @@ async function addMovie(movie_title,movie_director,movie_year){
     return movie;
 }
 
-async function addMovieCategory(movie_id,category_id){
+async function addMovieCategoryPair(movie_id,category_id){
     await pool.query(
         "INSERT INTO movie_with_category (movieid,categoryid) VALUES ($1,$2)",
         [movie_id,category_id]);
+}
+
+async function deleteMovieCategories(movie_id){
+    await pool.query(
+        "DELETE FROM movie_with_category WHERE movieid=$1",
+        [movie_id]);
 }
 
 async function addCategory(category_type) {
@@ -103,7 +110,8 @@ module.exports = {
     addMovie,
     ifMovieExists,
     ifCategoryExists,
-    addMovieCategory,
+    addMovieCategoryPair,
+    deleteMovieCategories,
     addCategory,
     getCategoriesFromMovieID,
     getMovieIDByTitle,

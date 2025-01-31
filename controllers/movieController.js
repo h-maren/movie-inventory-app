@@ -51,25 +51,43 @@ async function addOrEditMovie(req,res){
     const movie_director=req.body.movie_director;
     const movie_year=req.body.movie_year;
     const movieExists= await db.ifMovieExists(movie_title);
-    const movieCategories=req.body.category;
+
+    const movieCategories=[];
+    for(const item in req.body.category) {
+        movieCategories.push(req.body.category[item]);
+    }
+    /*const movieCategories=req.body.category;*/
+    
+    //check if single or multiple movieCatgories - need to fix
+    console.log(req.body);
+    console.log(movieCategories);
+    console.log(Array.isArray(movieCategories));
+
     if(!movieExists){
         //insert movie details to sql database
         const {rows} = await db.addMovie(movie_title,movie_director,movie_year);
         const movieID = rows[0].id;
+        await addMovieCategories(movieID);
         //insert movie-category pairs
-        for(let i=0; i<movieCategories.length; i++){
-            const categoryID = await db.findCategoryID(movieCategories[i]);
-            await db.addMovieCategory(movieID,categoryID)
-        }
-        res.redirect('/');
     }
-    //if movie exists, update instead
+    //if movie exists, update instead and delete movie category pairs
     else {
+        console.log(movieCategories.length);
         const movieID = await db.getMovieIDByTitle(movie_title);
         await db.updateMovieDetails(movieID,movie_director,movie_year);
-        //need to add redirect page here
-        res.redirect('/');
+        await db.deleteMovieCategories(movieID);
+        await addMovieCategories(movieID);
     }
+    async function addMovieCategories(movieID){
+        for(let i=0; i<movieCategories.length; i++){
+            const categoryID = await db.findCategoryID(movieCategories[i]);
+            await db.addMovieCategoryPair(movieID,categoryID)
+        }
+    }
+
+
+    //should redirect page change
+    res.redirect('/');
 };
 
 module.exports = {
