@@ -52,11 +52,7 @@ VALUES
 async function main() {
     console.log("seeding...");
     const client = new Client({
-      host: "localhost", // or wherever the db is hosted
-      user: process.env.ROLE,
-      database: "movie_database",
-      password: process.env.PASSWORD,
-      port: 5432 // The default port
+      connectionString: process.env.DATABASE_URL
     });
     console.log('client connecting...');
     await client.connect();
