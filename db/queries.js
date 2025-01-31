@@ -13,7 +13,6 @@ async function getSelectedCategory(categoryID){
 
 async function findCategoryID(category){
     const {rows} = await pool.query("SELECT id FROM movie_categories WHERE category_type=$1",[category]);
-    console.log(rows);
     return rows[0].id;
 }
 

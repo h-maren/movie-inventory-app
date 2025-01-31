@@ -39,7 +39,7 @@ async function editMovieForm(req,res){
     const categories = await db.getAllCategories();
     const moviescategories = await db.getCategoriesFromMovieID(movieID);
     res.render("movieForm", {
-        title: "Edit Movie in Library",
+        title: "Update Movie in Library",
         categories: categories,
         movie: movie,
         moviescategories: moviescategories
@@ -56,12 +56,6 @@ async function addOrEditMovie(req,res){
     for(const item in req.body.category) {
         movieCategories.push(req.body.category[item]);
     }
-    /*const movieCategories=req.body.category;*/
-    
-    //check if single or multiple movieCatgories - need to fix
-    console.log(req.body);
-    console.log(movieCategories);
-    console.log(Array.isArray(movieCategories));
 
     if(!movieExists){
         //insert movie details to sql database
@@ -72,7 +66,6 @@ async function addOrEditMovie(req,res){
     }
     //if movie exists, update instead and delete movie category pairs
     else {
-        console.log(movieCategories.length);
         const movieID = await db.getMovieIDByTitle(movie_title);
         await db.updateMovieDetails(movieID,movie_director,movie_year);
         await db.deleteMovieCategories(movieID);

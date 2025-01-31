@@ -9,15 +9,12 @@
     <%= title %>
 </header>
 <body>
-    <ul>
     <% movies.map((movie) => { %>
-        <li>
-        Title: <%= movie.movie_title %>,
-        Director: <%= movie.movie_director %>,
-        Year: <%= movie.movie_year %>
-        </li>
+        <ul><a href="/movie/<%= movie.id %>"><%=movie.movie_title%></a>
+            <li><%= movie.movie_director %></li>
+            <li>Year: <%= movie.movie_year %></li>
+        </ul>
     <% }) %>
-    </ul>
     <a href="/">Back to Main Page</a>
 </body>
 </html>

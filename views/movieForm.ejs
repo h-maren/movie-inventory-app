@@ -18,7 +18,7 @@
         <label for="movie_year">Year: </label>
         <input type="number" step="1" id="movie_year" name="movie_year" value="<%=movie ? movie.movie_year : ''%>">
         <% categories.map((category) => { %>
-            <input type="checkbox" id="<%= category.id %>" name="category" value="<%=category.category_type%>" 
+            <input type="checkbox" id="<%= category.id %>" name="category[]" value="<%=category.category_type%>" 
             <% if(moviescategories){ %>
             <% moviescategories.map((moviecategory) => {%>
             <% if(moviecategory.categoryid==category.id) {%> checked > <% } else {%> <% } %>
