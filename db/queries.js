@@ -61,6 +61,15 @@ async function addMovie(movie_title,movie_director,movie_year){
     return movie;
 }
 
+async function deleteMovie(movieID){
+    await pool.query(
+        "DELETE FROM movie_details WHERE id=$1",
+        [movieID]);
+    await pool.query(
+        "DELETE FROM movie_with_category WHERE movieid=$1",
+        [movieID]);
+}
+
 async function addMovieCategoryPair(movie_id,category_id){
     await pool.query(
         "INSERT INTO movie_with_category (movieid,categoryid) VALUES ($1,$2)",
@@ -78,6 +87,18 @@ async function addCategory(category_type) {
         "INSERT INTO movie_categories (category_type) VALUES ($1)",
         [category_type]);
 }
+
+async function deleteCategory(categoryID) {
+    await pool.query(
+        "DELETE FROM movie_categories WHERE id=$1",
+        [categoryID]);
+        //remove from movies too
+    await pool.query(
+        "DELETE FROM movie_with_category WHERE categoryid=$1",
+        [categoryID]);
+}
+
+
 
 async function getCategoriesFromMovieID(movieID){
     const {rows} = await pool.query(
@@ -107,11 +128,13 @@ module.exports = {
     getSelectedMovie,
     getSelectedCategoryMovies,
     addMovie,
+    deleteMovie,
     ifMovieExists,
     ifCategoryExists,
     addMovieCategoryPair,
     deleteMovieCategories,
     addCategory,
+    deleteCategory,
     getCategoriesFromMovieID,
     getMovieIDByTitle,
     updateMovieDetails

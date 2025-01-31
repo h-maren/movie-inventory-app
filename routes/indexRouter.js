@@ -18,6 +18,9 @@ indexRouter.post('/addOrEditMovie',movieController.addOrEditMovie);
 
 indexRouter.get('/edit/:id',movieController.editMovieForm);
 
+indexRouter.post("/deleteMovie/:id",movieController.deleteMovie);
+indexRouter.post("/deleteCategory/:id",categoryController.deleteCategory);
+
 indexRouter.get("/addCategoryForm",categoryController.getCategoryForm);
 indexRouter.post("/addCategory",categoryController.addCategory);
 

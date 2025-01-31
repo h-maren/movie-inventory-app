@@ -11,7 +11,11 @@
 <body>
     <ul>
         <% categories.map((category) => { %>
-            <li><%= category.category_type %></li>
+            <li><%= category.category_type %>
+            <form method="POST" action="/deleteCategory/<%= category.id %>">
+                <button type="submit">Delete This Category</button>
+            </form>
+            </li>
     <% }) %>
     </ul>
         <a href="/">Back to Main Page</a>

@@ -38,9 +38,16 @@ async function addCategory(req,res){
     }
 };
 
+async function deleteCategory(req,res){
+    const categoryID=req.params.id;
+    await db.deleteCategory(categoryID);
+    res.redirect('/');
+}
+
 module.exports = {
     getAllCategories,
     getSelectedCategory,
     getCategoryForm,
-    addCategory
+    addCategory,
+    deleteCategory
   };

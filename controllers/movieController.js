@@ -77,16 +77,20 @@ async function addOrEditMovie(req,res){
             await db.addMovieCategoryPair(movieID,categoryID)
         }
     }
-
-
-    //should redirect page change
     res.redirect('/');
 };
+
+async function deleteMovie(req,res){
+    const movieID=req.params.id;
+    await db.deleteMovie(movieID);
+    res.redirect('/');
+}
 
 module.exports = {
     getAllMovies,
     getSelectedMovieDetails,
     getMovieForm,
     addOrEditMovie,
-    editMovieForm
+    editMovieForm,
+    deleteMovie
   };

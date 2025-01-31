@@ -28,6 +28,9 @@
         <% }) %>
         <button type="submit"><%=title%></button>
      </form>
+     <form method="POST" action="/deleteMovie/<%= movie.id %>">
+        <button type="submit">Delete This Movie</button>
+     </form>
      <a href="/">Change Your Mind? Go Back Home</a>
 </body>
 </html>
